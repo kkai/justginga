@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Just Ginga</title>
+<meta name="description" content="Just Ginga is a galaxies puzzle for iPhone and iPad with lessons built in: split a chart of the night sky into galaxies, one star in each, every galaxy symmetric about its star.">
+<style>
+  /* The app's room colours, light and dark like the app; the chart is night in both. */
+  :root {
+    --ground: #e8ebf1; --card: #f7f8fb; --text: #151a28; --soft: rgba(21,26,40,.76);
+    --accent: #34528a; --hairline: rgba(21,26,40,.14); --teach: #b23c78;
+    --sky: #121935; --rim: #2b3664; --silver: #e3e9f7; --brass: #f0c866;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0c0e16; --card: #171a26; --text: #e7e9f1; --soft: rgba(231,233,241,.76);
+      --accent: #a9c0ee; --hairline: rgba(231,233,241,.14); --teach: #f28cc0;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--ground); color: var(--text);
+         font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 16px; }
+  header { padding: 40px 0 8px; }
+  .sky { background: var(--sky); border: 1.5px solid var(--rim); border-radius: 26px; color: var(--silver);
+         display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; padding: 44px 40px; }
+  .just { font-size: 22px; font-weight: 300; opacity: .7; margin: 0; }
+  h1 { margin: 0 0 18px; font-size: clamp(48px, 10vw, 88px); line-height: 1; font-weight: 100; letter-spacing: .24em; }
+  h1 .star { display: inline-block; width: .22em; height: .22em; border-radius: 50%; background: var(--brass);
+             box-shadow: 0 0 0 .12em rgba(240,200,102,.24); vertical-align: middle; margin-left: .1em; }
+  .lede { font-size: 19px; max-width: 28em; margin: 0 0 20px; opacity: .88; }
+  .soon { margin: 0; font-weight: 600; color: var(--brass); }
+  .board { width: 100%; max-width: 380px; display: block; margin-left: auto; }
+  a:focus-visible { outline: 3px solid var(--teach); outline-offset: 3px; }
+  section { padding: 44px 0 8px; }
+  h2 { font-size: 28px; font-weight: 300; line-height: 1.2; margin: 0 0 14px; }
+  .cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .cols > div { background: var(--card); border-radius: 16px; padding: 20px 22px; }
+  .cols h3 { margin: 0 0 6px; font-size: 18px; font-weight: 600; }
+  .cols p { margin: 0; color: var(--soft); }
+  .price { background: var(--card); border-radius: 16px; padding: 24px 28px; max-width: 680px; }
+  .price p { margin: 0; }
+  .shots { display: flex; gap: 18px; overflow-x: auto; padding: 8px 0 18px; scroll-snap-type: x mandatory; }
+  .shots figure { margin: 0; flex: 0 0 210px; scroll-snap-align: start; }
+  .shots img { width: 210px; height: auto; display: block; border-radius: 22px; border: 1px solid var(--hairline); }
+  .shots figcaption { font-size: 15px; color: var(--soft); margin-top: 8px; }
+  footer { padding: 56px 0 72px; color: var(--soft); font-size: 15px; }
+  footer a { color: var(--accent); }
+  @media (max-width: 760px) {
+    .sky { grid-template-columns: 1fr; padding: 32px 22px; }
+    .board { margin: 0 auto; }
+    .cols { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<header class="wrap">
+  <div class="sky">
+    <div>
+      <p class="just">just</p>
+      <h1>GINGA<span class="star" aria-hidden="true"></span></h1>
+      <p class="lede">Draw walls on a chart of the night sky until it falls apart into galaxies. Each holds one star and looks the same after a half turn about it. The app teaches you how.</p>
+      <p class="soon">Not in the App Store yet. It will run on iPhone and iPad.</p>
+    </div>
+    <svg viewBox="0 0 360 360" role="img" aria-labelledby="chartTitle" class="board">
+<title id="chartTitle">A solved 9 by 9 chart: the sky split into galaxies, one star in each, every galaxy glowing in its own colour.</title>
+<rect width="360" height="360" rx="10" fill="#2b3664"/>
+<rect x="2" y="2" width="356" height="356" rx="8" fill="#121935"/>
+<rect x="8.0" y="8.0" width="38.5" height="38.5" fill="#95534a" fill-opacity=".85"/>
+<rect x="46.2" y="8.0" width="38.5" height="38.5" fill="#95534a" fill-opacity=".85"/>
+<rect x="84.4" y="8.0" width="38.5" height="38.5" fill="#95534a" fill-opacity=".85"/>
+<rect x="122.7" y="8.0" width="38.5" height="38.5" fill="#95534a" fill-opacity=".85"/>
+<rect x="160.9" y="8.0" width="38.5" height="38.5" fill="#95534a" fill-opacity=".85"/>
+<rect x="199.1" y="8.0" width="38.5" height="38.5" fill="#95534a" fill-opacity=".85"/>
+<rect x="237.3" y="8.0" width="38.5" height="38.5" fill="#2f7e86" fill-opacity=".85"/>
+<rect x="275.6" y="8.0" width="38.5" height="38.5" fill="#2f7e86" fill-opacity=".85"/>
+<rect x="313.8" y="8.0" width="38.5" height="38.5" fill="#9e4f7e" fill-opacity=".85"/>
+<rect x="8.0" y="46.2" width="38.5" height="38.5" fill="#95534a" fill-opacity=".85"/>
+<rect x="46.2" y="46.2" width="38.5" height="38.5" fill="#95534a" fill-opacity=".85"/>
+<rect x="84.4" y="46.2" width="38.5" height="38.5" fill="#95534a" fill-opacity=".85"/>
+<rect x="122.7" y="46.2" width="38.5" height="38.5" fill="#95534a" fill-opacity=".85"/>
+<rect x="160.9" y="46.2" width="38.5" height="38.5" fill="#95534a" fill-opacity=".85"/>
+<rect x="199.1" y="46.2" width="38.5" height="38.5" fill="#95534a" fill-opacity=".85"/>
+<rect x="237.3" y="46.2" width="38.5" height="38.5" fill="#4f5fa8" fill-opacity=".85"/>
+<rect x="275.6" y="46.2" width="38.5" height="38.5" fill="#3d6e9e" fill-opacity=".85"/>
+<rect x="313.8" y="46.2" width="38.5" height="38.5" fill="#9e4f7e" fill-opacity=".85"/>
+<rect x="8.0" y="84.4" width="38.5" height="38.5" fill="#6a4c9c" fill-opacity=".85"/>
+<rect x="46.2" y="84.4" width="38.5" height="38.5" fill="#6a4c9c" fill-opacity=".85"/>
+<rect x="84.4" y="84.4" width="38.5" height="38.5" fill="#4f5fa8" fill-opacity=".85"/>
+<rect x="122.7" y="84.4" width="38.5" height="38.5" fill="#4f5fa8" fill-opacity=".85"/>
+<rect x="160.9" y="84.4" width="38.5" height="38.5" fill="#4f5fa8" fill-opacity=".85"/>
+<rect x="199.1" y="84.4" width="38.5" height="38.5" fill="#4f5fa8" fill-opacity=".85"/>
+<rect x="237.3" y="84.4" width="38.5" height="38.5" fill="#4f5fa8" fill-opacity=".85"/>
+<rect x="275.6" y="84.4" width="38.5" height="38.5" fill="#3d6e9e" fill-opacity=".85"/>
+<rect x="313.8" y="84.4" width="38.5" height="38.5" fill="#9e4f7e" fill-opacity=".85"/>
+<rect x="8.0" y="122.7" width="38.5" height="38.5" fill="#9e4f7e" fill-opacity=".85"/>
+<rect x="46.2" y="122.7" width="38.5" height="38.5" fill="#9e4f7e" fill-opacity=".85"/>
+<rect x="84.4" y="122.7" width="38.5" height="38.5" fill="#4f5fa8" fill-opacity=".85"/>
+<rect x="122.7" y="122.7" width="38.5" height="38.5" fill="#4f5fa8" fill-opacity=".85"/>
+<rect x="160.9" y="122.7" width="38.5" height="38.5" fill="#4f5fa8" fill-opacity=".85"/>
+<rect x="199.1" y="122.7" width="38.5" height="38.5" fill="#4f5fa8" fill-opacity=".85"/>
+<rect x="237.3" y="122.7" width="38.5" height="38.5" fill="#8a6a34" fill-opacity=".85"/>
+<rect x="275.6" y="122.7" width="38.5" height="38.5" fill="#8a6a34" fill-opacity=".85"/>
+<rect x="313.8" y="122.7" width="38.5" height="38.5" fill="#9e4f7e" fill-opacity=".85"/>
+<rect x="8.0" y="160.9" width="38.5" height="38.5" fill="#37795c" fill-opacity=".85"/>
+<rect x="46.2" y="160.9" width="38.5" height="38.5" fill="#4f5fa8" fill-opacity=".85"/>
+<rect x="84.4" y="160.9" width="38.5" height="38.5" fill="#4f5fa8" fill-opacity=".85"/>
+<rect x="122.7" y="160.9" width="38.5" height="38.5" fill="#4f5fa8" fill-opacity=".85"/>
+<rect x="160.9" y="160.9" width="38.5" height="38.5" fill="#4f5fa8" fill-opacity=".85"/>
+<rect x="199.1" y="160.9" width="38.5" height="38.5" fill="#4f5fa8" fill-opacity=".85"/>
+<rect x="237.3" y="160.9" width="38.5" height="38.5" fill="#8a6a34" fill-opacity=".85"/>
+<rect x="275.6" y="160.9" width="38.5" height="38.5" fill="#8a6a34" fill-opacity=".85"/>
+<rect x="313.8" y="160.9" width="38.5" height="38.5" fill="#9e4f7e" fill-opacity=".85"/>
+<rect x="8.0" y="199.1" width="38.5" height="38.5" fill="#37795c" fill-opacity=".85"/>
+<rect x="46.2" y="199.1" width="38.5" height="38.5" fill="#95534a" fill-opacity=".85"/>
+<rect x="84.4" y="199.1" width="38.5" height="38.5" fill="#95534a" fill-opacity=".85"/>
+<rect x="122.7" y="199.1" width="38.5" height="38.5" fill="#6a4c9c" fill-opacity=".85"/>
+<rect x="160.9" y="199.1" width="38.5" height="38.5" fill="#6a4c9c" fill-opacity=".85"/>
+<rect x="199.1" y="199.1" width="38.5" height="38.5" fill="#6a4c9c" fill-opacity=".85"/>
+<rect x="237.3" y="199.1" width="38.5" height="38.5" fill="#8a6a34" fill-opacity=".85"/>
+<rect x="275.6" y="199.1" width="38.5" height="38.5" fill="#8a6a34" fill-opacity=".85"/>
+<rect x="313.8" y="199.1" width="38.5" height="38.5" fill="#9e4f7e" fill-opacity=".85"/>
+<rect x="8.0" y="237.3" width="38.5" height="38.5" fill="#37795c" fill-opacity=".85"/>
+<rect x="46.2" y="237.3" width="38.5" height="38.5" fill="#8a6a34" fill-opacity=".85"/>
+<rect x="84.4" y="237.3" width="38.5" height="38.5" fill="#8a6a34" fill-opacity=".85"/>
+<rect x="122.7" y="237.3" width="38.5" height="38.5" fill="#6a4c9c" fill-opacity=".85"/>
+<rect x="160.9" y="237.3" width="38.5" height="38.5" fill="#6a4c9c" fill-opacity=".85"/>
+<rect x="199.1" y="237.3" width="38.5" height="38.5" fill="#6a4c9c" fill-opacity=".85"/>
+<rect x="237.3" y="237.3" width="38.5" height="38.5" fill="#6a4c9c" fill-opacity=".85"/>
+<rect x="275.6" y="237.3" width="38.5" height="38.5" fill="#8a6a34" fill-opacity=".85"/>
+<rect x="313.8" y="237.3" width="38.5" height="38.5" fill="#8a6a34" fill-opacity=".85"/>
+<rect x="8.0" y="275.6" width="38.5" height="38.5" fill="#2f7e86" fill-opacity=".85"/>
+<rect x="46.2" y="275.6" width="38.5" height="38.5" fill="#8a6a34" fill-opacity=".85"/>
+<rect x="84.4" y="275.6" width="38.5" height="38.5" fill="#8a6a34" fill-opacity=".85"/>
+<rect x="122.7" y="275.6" width="38.5" height="38.5" fill="#6a4c9c" fill-opacity=".85"/>
+<rect x="160.9" y="275.6" width="38.5" height="38.5" fill="#6a4c9c" fill-opacity=".85"/>
+<rect x="199.1" y="275.6" width="38.5" height="38.5" fill="#6a4c9c" fill-opacity=".85"/>
+<rect x="237.3" y="275.6" width="38.5" height="38.5" fill="#6a4c9c" fill-opacity=".85"/>
+<rect x="275.6" y="275.6" width="38.5" height="38.5" fill="#8a6a34" fill-opacity=".85"/>
+<rect x="313.8" y="275.6" width="38.5" height="38.5" fill="#8a6a34" fill-opacity=".85"/>
+<rect x="8.0" y="313.8" width="38.5" height="38.5" fill="#3d6e9e" fill-opacity=".85"/>
+<rect x="46.2" y="313.8" width="38.5" height="38.5" fill="#3d6e9e" fill-opacity=".85"/>
+<rect x="84.4" y="313.8" width="38.5" height="38.5" fill="#3d6e9e" fill-opacity=".85"/>
+<rect x="122.7" y="313.8" width="38.5" height="38.5" fill="#3d6e9e" fill-opacity=".85"/>
+<rect x="160.9" y="313.8" width="38.5" height="38.5" fill="#6a4c9c" fill-opacity=".85"/>
+<rect x="199.1" y="313.8" width="38.5" height="38.5" fill="#6a4c9c" fill-opacity=".85"/>
+<rect x="237.3" y="313.8" width="38.5" height="38.5" fill="#6a4c9c" fill-opacity=".85"/>
+<rect x="275.6" y="313.8" width="38.5" height="38.5" fill="#8a6a34" fill-opacity=".85"/>
+<rect x="313.8" y="313.8" width="38.5" height="38.5" fill="#8a6a34" fill-opacity=".85"/>
+<path d="M8 8h344.0v344.0h-344.0ZM237.3 8.0v38.2M313.8 8.0v38.2M237.3 46.2v38.2M275.6 46.2v38.2M313.8 46.2v38.2M84.4 84.4v38.2M275.6 84.4v38.2M313.8 84.4v38.2M84.4 122.7v38.2M237.3 122.7v38.2M313.8 122.7v38.2M46.2 160.9v38.2M237.3 160.9v38.2M313.8 160.9v38.2M46.2 199.1v38.2M122.7 199.1v38.2M237.3 199.1v38.2M313.8 199.1v38.2M46.2 237.3v38.2M122.7 237.3v38.2M275.6 237.3v38.2M46.2 275.6v38.2M122.7 275.6v38.2M275.6 275.6v38.2M160.9 313.8v38.2M275.6 313.8v38.2M237.3 46.2h38.2M275.6 46.2h38.2M8.0 84.4h38.2M46.2 84.4h38.2M84.4 84.4h38.2M122.7 84.4h38.2M160.9 84.4h38.2M199.1 84.4h38.2M237.3 84.4h38.2M8.0 122.7h38.2M46.2 122.7h38.2M237.3 122.7h38.2M275.6 122.7h38.2M8.0 160.9h38.2M46.2 160.9h38.2M46.2 199.1h38.2M84.4 199.1h38.2M122.7 199.1h38.2M160.9 199.1h38.2M199.1 199.1h38.2M46.2 237.3h38.2M84.4 237.3h38.2M237.3 237.3h38.2M313.8 237.3h38.2M8.0 275.6h38.2M8.0 313.8h38.2M46.2 313.8h38.2M84.4 313.8h38.2M122.7 313.8h38.2" stroke="#e3e9f7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+<circle cx="332.9" cy="122.7" r="9.9" fill="rgba(240,200,102,.24)"/>
+<circle cx="332.9" cy="122.7" r="5.0" fill="#f0c866"/>
+<circle cx="294.7" cy="237.3" r="9.9" fill="rgba(240,200,102,.24)"/>
+<circle cx="294.7" cy="237.3" r="5.0" fill="#f0c866"/>
+<circle cx="122.7" cy="46.2" r="9.9" fill="rgba(240,200,102,.24)"/>
+<circle cx="122.7" cy="46.2" r="5.0" fill="#f0c866"/>
+<circle cx="160.9" cy="141.8" r="9.9" fill="rgba(240,200,102,.24)"/>
+<circle cx="160.9" cy="141.8" r="5.0" fill="#f0c866"/>
+<circle cx="199.1" cy="275.6" r="9.9" fill="rgba(240,200,102,.24)"/>
+<circle cx="199.1" cy="275.6" r="5.0" fill="#f0c866"/>
+<circle cx="84.4" cy="332.9" r="9.9" fill="rgba(240,200,102,.24)"/>
+<circle cx="84.4" cy="332.9" r="5.0" fill="#f0c866"/>
+<circle cx="27.1" cy="294.7" r="9.9" fill="rgba(240,200,102,.24)"/>
+<circle cx="27.1" cy="294.7" r="5.0" fill="#f0c866"/>
+<circle cx="27.1" cy="218.2" r="9.9" fill="rgba(240,200,102,.24)"/>
+<circle cx="27.1" cy="218.2" r="5.0" fill="#f0c866"/>
+<circle cx="46.2" cy="141.8" r="9.9" fill="rgba(240,200,102,.24)"/>
+<circle cx="46.2" cy="141.8" r="5.0" fill="#f0c866"/>
+<circle cx="84.4" cy="275.6" r="9.9" fill="rgba(240,200,102,.24)"/>
+<circle cx="84.4" cy="275.6" r="5.0" fill="#f0c866"/>
+<circle cx="84.4" cy="218.2" r="9.9" fill="rgba(240,200,102,.24)"/>
+<circle cx="84.4" cy="218.2" r="5.0" fill="#f0c866"/>
+<circle cx="256.4" cy="65.3" r="9.9" fill="rgba(240,200,102,.24)"/>
+<circle cx="256.4" cy="65.3" r="5.0" fill="#f0c866"/>
+<circle cx="46.2" cy="103.6" r="9.9" fill="rgba(240,200,102,.24)"/>
+<circle cx="46.2" cy="103.6" r="5.0" fill="#f0c866"/>
+<circle cx="294.7" cy="84.4" r="9.9" fill="rgba(240,200,102,.24)"/>
+<circle cx="294.7" cy="84.4" r="5.0" fill="#f0c866"/>
+<circle cx="275.6" cy="27.1" r="9.9" fill="rgba(240,200,102,.24)"/>
+<circle cx="275.6" cy="27.1" r="5.0" fill="#f0c866"/>
+</svg>
+  </div>
+</header>
+<main class="wrap">
+  <section>
+    <h2>Learning is part of the game</h2>
+    <div class="cols">
+      <div><h3>Four rule steps</h3><p>One move each, on a chart where the new rule settles it and nothing else does.</p></div>
+      <div><h3>Seven ideas</h3><p>From stars on a line to galaxies that can't reach a cell. Each idea is worked once in front of you, then you try two.</p></div>
+      <div><h3>Hints in stages</h3><p>Ask for as much as you need: the area, then the idea's name, then the reasoning drawn over your chart.</p></div>
+    </div>
+  </section>
+  <section>
+    <h2>Screens</h2>
+    <div class="shots">
+      <figure><img src="shot-hint.png" width="621" height="1344" alt="A 9 by 9 chart in progress, some galaxies glowing, with a hint card naming the idea and its cells highlighted."><figcaption>A hint, drawn on the chart</figcaption></figure>
+      <figure><img src="shot-lesson.png" width="621" height="1344" alt="The Out of Reach lesson: a chart with one star's reachable area highlighted and the reasoning written below."><figcaption>A lesson's first example</figcaption></figure>
+      <figure><img src="shot-path.png" width="621" height="1344" alt="The lesson list: four rule steps done, then the seven ideas, some sealed."><figcaption>Rules, then ideas</figcaption></figure>
+      <figure><img src="shot-home.png" width="621" height="1344" alt="The home screen: a night-sky card with the name and a strip of glowing galaxies, the next lesson, and the daily chart."><figcaption>Home</figcaption></figure>
+      <figure><img src="shot-win.png" width="621" height="1344" alt="A finished 9 by 9 chart with every galaxy in colour, and the time and ideas used below."><figcaption>Every galaxy found</figcaption></figure>
+    </div>
+  </section>
+  <section>
+    <h2>The charts</h2>
+    <div class="cols">
+      <div><h3>Tonight's chart</h3><p>A new 9×9 every day, identical for all players: gentle on Monday, hard on Sunday.</p></div>
+      <div><h3>Darker skies</h3><p>Dusk, Twilight, Night, Midnight and Deep Sky across 7×7, 9×9 and 11×11. The hardest idea a chart needs sets its darkness.</p></div>
+      <div><h3>One answer</h3><p>The app finishes each chart with its own seven ideas before it reaches you, so it can be solved without a guess.</p></div>
+    </div>
+  </section>
+  <section>
+    <div class="price">
+      <h2>What it costs</h2>
+      <p>Free: the rule steps, five lessons, the 7×7 and 9×9 charts and the daily chart. The Whole Sky is a single purchase that adds the last two lessons, the 11×11 chart and the staged hints. No ads, no data collected, no subscription.</p>
+    </div>
+  </section>
+</main>
+<footer class="wrap">
+  <a href="justginga-privacy.html">Privacy</a> &nbsp;/&nbsp; <a href="mailto:kai.kunze@gmail.com">Support</a> &nbsp;/&nbsp; <a href="https://kaikunze.de/">kaikunze.de</a>
+</footer>
+</body>
+</html>
